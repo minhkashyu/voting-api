@@ -1,0 +1,49 @@
+{
+    "name": "voting-app-server",
+    "version": "1.0.0",
+    "description": "API server for Voting App - A Free Code Camp Dymamic Web Application Project.",
+    "engines": {
+        "node": "6.11.x"
+    },
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "babel-node --presets es2015 index.js",
+        "refresh": "rm -rf node_modules && npm cache clean && npm install",
+        "killallport": "killall -9 node",
+        "findpid": "ps -aux | grep node",
+        "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    },
+    "cacheDirectories": [
+        "node_modules",
+        "client/node_modules"
+    ],
+    "keywords": [
+        "voting-app",
+        "api",
+        "server-side"
+    ],
+    "author": "minhkashyu",
+    "license": "MIT",
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "^1.17.1",
+        "crypto": "0.0.3",
+        "dotenv": "^4.0.0",
+        "express": "^4.15.2",
+        "jsonwebtoken": "^7.3.0",
+        "mongoose": "^4.8.6",
+        "morgan": "^1.8.1",
+        "passport": "^0.3.2",
+        "passport-facebook": "^2.1.1",
+        "passport-google-oauth": "^1.0.0",
+        "passport-jwt": "^2.2.1",
+        "passport-local": "^1.0.0",
+        "passport-twitter": "^1.0.4",
+        "babel-cli": "^6.24.1",
+        "babel-preset-es2015": "^6.24.1",
+        "nodemon": "^1.11.0"
+    },
+    "devDependencies": {
+    }
+}
