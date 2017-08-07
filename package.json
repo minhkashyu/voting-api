@@ -1,6 +1,6 @@
 {
     "name": "voting-app-server",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "API server for Voting App - A Free Code Camp Dymamic Web Application Project.",
     "engines": {
         "node": "6.11.x"
@@ -11,13 +11,8 @@
         "start": "babel-node --presets es2015 index.js",
         "refresh": "rm -rf node_modules && npm cache clean && npm install",
         "killallport": "killall -9 node",
-        "findpid": "ps -aux | grep node",
-        "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+        "findpid": "ps -aux | grep node"
     },
-    "cacheDirectories": [
-        "node_modules",
-        "client/node_modules"
-    ],
     "keywords": [
         "voting-app",
         "api",

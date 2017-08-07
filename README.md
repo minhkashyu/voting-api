@@ -2,7 +2,7 @@
 
 A Free Code Camp Dynamic Web Application Project. A Full Stack Javascript App using Node, Express, MongoDB, React and Passport.
 
-This is the API server side for the App.
+This is the API server side for the App. The client side is located at https://github.com/minhkashyu/voting-api.
 
 You can run the App at https://mks-voting-app.herokuapp.com/
 
