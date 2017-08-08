@@ -22,7 +22,7 @@ app.use(logger('dev')); // Log requests to API using morgan
 
 //Enable CORS from client-side
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', process.env.CLIENT_DOMAIN || '*');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS, HEAD');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials, Media');
     res.header('Access-Control-Allow-Credentials', 'true');
