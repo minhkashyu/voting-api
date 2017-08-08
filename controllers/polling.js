@@ -47,7 +47,7 @@ export function fetchSinglePoll(req, res, next) {
                 return next(err);
             }
 
-            return res.status(200).json({ poll: poll });
+            return res.status(200).json({ poll: poll || {} });
         });
 }
 
