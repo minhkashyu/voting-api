@@ -1,0 +1,2 @@
+{"_id":{"$oid":"598eacfd2e107c03d517d782"},"role":"Member","local":{"firstName":"Local","lastName":"Test","email":"localtest@hotmail.com","password":"$2a$08$K/vm.n99Ov9AG9BX7u5zXuLgGwfUtHdyTwmqU.D2mKe2quTSpZQtS"}}
+{"_id":{"$oid":"598eb27f2e107c03d517d788"},"role":"Member","local":{"firstName":"User","lastName":"Different","email":"differentuser@yahoo.com","password":"$2a$08$ZRavHPWsFszTTfl1Klplxew92O.vTj1KPAgiZgcgqjzUU3R5U4tWO"}}
