@@ -130,7 +130,7 @@ export const forgotPassword = (req, res, next) => {
         }
 
         if (!existingUser) {
-            return res.status(422).json({ error: 'Your email can not be processed. Please try again.'});
+            return res.status(422).json({ error: 'Your email can not be processed. Please check it.'});
         }
 
         // If user is found, generate and save resetToken

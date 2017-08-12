@@ -18,7 +18,9 @@ mongoose.Promise = global.Promise;
 // Setting up basic middleware for all Express requests
 app.use(bodyParser.urlencoded({ extended: true })); // Parses urlencoded bodies to get info from POST and/or URL parameters
 app.use(bodyParser.json()); // Send JSON responses
-app.use(logger('dev')); // Log requests to API using morgan
+if(process.env.NODE_ENV !== 'test') {
+    app.use(logger('dev')); // Log requests to API using morgan
+}
 
 //Enable CORS from client-side
 app.use((req, res, next) => {
@@ -36,5 +38,8 @@ app.listen(config.port, err => {
     if (err) {
         return console.error(err);
     }
-    console.log('The server is listening on ' + config.port + '...');
+
+    console.log('The server is listening on port %s', config.port);
 });
+
+module.exports = app;
