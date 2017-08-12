@@ -178,7 +178,7 @@ export const verifyToken = (req, res, next) => {
             }
 
             if (!resetUser) {
-                res.status(422).json({ error: 'Your token has expired. Please reset your password again.' });
+                return res.status(422).json({ error: 'Your token has expired. Please reset your password again.' });
             }
 
             resetUser.generateHash(req.body.password, (error, hash) => {
