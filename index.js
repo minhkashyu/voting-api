@@ -2,23 +2,28 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
-import path from 'path';
 require('dotenv').config({ silent: true });
 
-const app = express();
+let app = express();
 const config = require('./config/main');
 const router = require('./routes/index');
 
 // Database Connection
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database, {
     useMongoClient: true
+})
+.then(() => {
+    console.log('Mongoose default connection is open to ' + config.database);
+})
+.catch((error) => {
+    console.log('error connecting to db: ' + error);
 });
-mongoose.Promise = global.Promise;
 
 // Setting up basic middleware for all Express requests
 app.use(bodyParser.urlencoded({ extended: true })); // Parses urlencoded bodies to get info from POST and/or URL parameters
 app.use(bodyParser.json()); // Send JSON responses
-if(process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
     app.use(logger('dev')); // Log requests to API using morgan
 }
 

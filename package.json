@@ -7,8 +7,8 @@
     },
     "main": "index.js",
     "scripts": {
-        "test": "cross-env NODE_ENV=test mocha --timeout 10000 --compilers js:babel-core/register ./tests/api/*",
-        "start": "cross-env NODE_ENV=production babel-node index.js",
+        "test": "cross-env NODE_ENV=test ./tests/config/test.sh",
+        "start": "cross-env NODE_ENV=development babel-node index.js",
         "refresh": "rm -rf node_modules && npm cache clean && npm install",
         "killallport": "killall -9 node",
         "findpid": "ps -aux | grep node"
@@ -25,6 +25,7 @@
         "babel-preset-es2015": "^6.24.1",
         "bcrypt-nodejs": "0.0.3",
         "body-parser": "^1.17.1",
+        "cross-env": "^5.0.5",
         "crypto": "0.0.3",
         "dotenv": "^4.0.0",
         "express": "^4.15.2",
@@ -43,7 +44,7 @@
         "babel-core": "^6.25.0",
         "chai": "^4.1.1",
         "chai-http": "^3.0.0",
-        "cross-env": "^5.0.5",
+        "lodash": "^4.17.4",
         "mocha": "^3.5.0"
     }
 }
