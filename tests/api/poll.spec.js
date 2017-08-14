@@ -6,7 +6,7 @@ import {describe, beforeEach, afterEach, it} from 'mocha';
 
 let app = require('./../../index');
 
-describe('Polls', () => {
+describe('polls', () => {
     describe('GET /api/polls', () => {
         it('it should GET all the polls', (done) => {
             chai.request(app).get('/api/polls')
@@ -20,16 +20,4 @@ describe('Polls', () => {
         });
     });
 
-    describe('POST /api/auth/register', () => {
-        it('it should GET all the polls', (done) => {
-            chai.request(app).post('/api/auth/register')
-                .send({ email: 'leonardo_taha@yahoo.com', firstName: 'Leonardo', lastName: 'Taha', password: '111111' })
-                .end((err, res) => {
-                    console.log(res.body);
-                    assert.equal(err, null);
-                    assert.equal(res.status, 201);
-                    done();
-                });
-        });
-    });
 });

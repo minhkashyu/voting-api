@@ -27,10 +27,10 @@ export const loginSuccess = (req, res, next) => {
 
 export const register = (req, res, next) => passport.authenticate('register', { session: false }, (err, user, info) => {
     if (err) {
-        return res.status(400).json({ error: err });
+        return next(err);
     }
     if (!user) {
-        return res.status(404).json({ error: info });
+        return res.status(400).json({ error: info.message });
     }
     const userInfo = setLocalUserInfo(user);
 
@@ -42,10 +42,10 @@ export const register = (req, res, next) => passport.authenticate('register', { 
 
 export const login = (req, res, next) => passport.authenticate('login', { session: false }, (err, user, info) => {
     if (err) {
-        return res.status(400).json({ error: err });
+        return next(err);
     }
     if (!user) {
-        return res.status(404).json({ error: info });
+        return res.status(404).json({ error: info.message });
     }
     const userInfo = setLocalUserInfo(user);
 
@@ -58,10 +58,10 @@ export const login = (req, res, next) => passport.authenticate('login', { sessio
 export const facebookLogin = passport.authenticate('facebook', { scope : 'email', session: false });
 export const facebookLoginCb = (req, res, next) => passport.authenticate('facebook', { session: false }, (err, user, info) => {
     if (err) {
-        return res.status(400).json({ error: err });
+        return next(err);
     }
     if (!user) {
-        return res.status(404).json({ error: info });
+        return res.status(400).json({ error: info.message });
     }
 
     const userInfo = setFacebookInfo(user);
@@ -83,10 +83,10 @@ export const facebookLoginCb = (req, res, next) => passport.authenticate('facebo
 export const googleLogin = passport.authenticate('google', { scope : ['profile', 'email'], session: false });
 export const googleLoginCb = (req, res, next) => passport.authenticate('google', { session: false }, (err, user, info) => {
     if (err) {
-        return res.status(400).json({ error: err });
+        return next(err);
     }
     if (!user) {
-        return res.status(404).json({ error: info });
+        return res.status(400).json({ error: info.message });
     }
 
     const userInfo = setGoogleInfo(user);
