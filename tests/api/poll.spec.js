@@ -5,27 +5,16 @@ chai.use(chaiHttp);
 import {describe, beforeEach, afterEach, it} from 'mocha';
 
 let app = require('./../../index');
-let server;
 
 describe('Polls', () => {
-    beforeEach((done) => {
-        server = app.listen();
-        done();
-    });
-
-    afterEach((done) => {
-        server.close(done);
-    });
-
-    describe.skip('GET /api/polls', () => {
+    describe('GET /api/polls', () => {
         it('it should GET all the polls', (done) => {
-            chai.request(server).get('/api/polls')
+            chai.request(app).get('/api/polls')
                 .end((err, res) => {
-                    console.log(res.body);
                     assert.equal(err, null);
                     assert.equal(res.status, 200);
                     assert.typeOf(res.body.polls, 'array', 'returns an array of polls');
-                    assert.lengthOf(res.body.polls, 0, 'returns no polls');
+                    assert.lengthOf(res.body.polls, 2, 'returns no polls');
                     done();
                 });
         });
@@ -33,8 +22,8 @@ describe('Polls', () => {
 
     describe('POST /api/auth/register', () => {
         it('it should GET all the polls', (done) => {
-            chai.request(server).post('/api/auth/register')
-                .send({ email: 'minhvinhta@yahoo.com', firstName: 'Minh', lastName: 'Ta', password: '123456' })
+            chai.request(app).post('/api/auth/register')
+                .send({ email: 'leonardo_taha@yahoo.com', firstName: 'Leonardo', lastName: 'Taha', password: '111111' })
                 .end((err, res) => {
                     console.log(res.body);
                     assert.equal(err, null);

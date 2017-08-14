@@ -1,5 +1,5 @@
 #!/bin/bash
-declare -a collections=("user" "poll")
+declare -a collections=("users" "polls")
 
 databaseName=$1
 
@@ -9,7 +9,7 @@ then
     for i in "${collections[@]}"
     do
         echo "Import $i"
-        mongoimport --drop --db $1 --collection $i --file ./tests/data/$i.json
+        mongoimport --db $1 --collection $i --drop --file ./tests/data/$i.json
     done
 else
     echo "Missing database name!"
