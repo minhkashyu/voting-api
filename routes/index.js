@@ -11,15 +11,7 @@ import {
     forgotPassword,
     verifyToken
     } from './../controllers/user/index';
-import {
-    fetchPolls,
-    fetchMyPolls,
-    fetchSinglePoll,
-    addPoll,
-    deletePoll,
-    submitVote,
-    voteNewOption
-    } from './../controllers/poll/index';
+import pollController from './../controllers/poll/index';
 
 // use session for passport
 //var session = require('express-session');
@@ -78,17 +70,17 @@ module.exports = (app) => {
     //=========================
 
     //fetchPolls()
-    apiRoutes.get('/polls', fetchPolls);
+    apiRoutes.get('/polls', pollController.fetchPolls);
     //fetchMyPolls()
-    apiRoutes.get('/polls/my', requireAuth, fetchMyPolls);
+    apiRoutes.get('/polls/my', requireAuth, pollController.fetchMyPolls);
     //fetchSinglePoll()
-    apiRoutes.get('/polls/:pollId', fetchSinglePoll);
+    apiRoutes.get('/polls/:pollId', pollController.fetchSinglePoll);
     //addPoll(data)
-    apiRoutes.post('/polls', requireAuth, addPoll);
+    apiRoutes.post('/polls', requireAuth, pollController.addPoll);
     //deletePoll()
-    apiRoutes.delete(`/polls/:pollId`, requireAuth, deletePoll);
+    apiRoutes.delete(`/polls/:pollId`, requireAuth, pollController.deletePoll);
     //submitVote()
-    apiRoutes.post('/polls/:pollId/options/:optionId/vote', submitVote);
+    apiRoutes.post('/polls/:pollId/options/:optionId/vote', pollController.submitVote);
     //submitVote(data)
-    apiRoutes.post('/polls/:pollId/options', requireAuth, voteNewOption);
+    apiRoutes.post('/polls/:pollId/options', requireAuth, pollController.voteNewOption);
 };

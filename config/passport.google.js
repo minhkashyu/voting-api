@@ -22,7 +22,7 @@ const google = new GoogleStrategy({
                     newUser.google.id    = profile.id;
                     newUser.google.token = token;
                     newUser.google.name  = profile.displayName;
-                    newUser.google.email = profile.emails[0].value; // pull the first email
+                    newUser.google.email = profile.emails[0].value;
 
                     newUser.save(err => {
                         if (err) {

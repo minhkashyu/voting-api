@@ -15,7 +15,7 @@ const facebook = new FacebookStrategy({
                     return done(err);
                 }
                 if (user) {
-                    return done(null, user); // user found, return that user
+                    return done(null, user);
                 }
                 else {
                     let newUser = new User();

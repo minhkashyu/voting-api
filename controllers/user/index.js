@@ -4,7 +4,7 @@ import User from './../../models/user';
 import config from './../../config/main';
 import passport from './../../config/passport';
 
-import { setLocalUserInfo, setFacebookInfo, setTwitterInfo, setGoogleInfo, getRole } from './helpers';
+import helpers from './helpers';
 
 const generateToken = user => {
     return jwt.sign(user, config.secret, {
@@ -14,7 +14,7 @@ const generateToken = user => {
 
 export const requireAuth = passport.authenticate('jwt', { session: false });
 export const loginSuccess = (req, res, next) => {
-    const userInfo = req.headers.media === 'facebook' ? setFacebookInfo(req.user) : setGoogleInfo(req.user);
+    const userInfo = req.headers.media === 'facebook' ? helpers.setFacebookInfo(req.user) : helpers.setGoogleInfo(req.user);
     res.status(201).json({
         token: req.headers.authorization,
         user: userInfo
@@ -32,7 +32,7 @@ export const register = (req, res, next) => passport.authenticate('register', { 
     if (!user) {
         return res.status(400).json({ error: info.message });
     }
-    const userInfo = setLocalUserInfo(user);
+    const userInfo = helpers.setLocalUserInfo(user);
 
     res.status(201).json({
         token: `JWT ${generateToken(userInfo)}`,
@@ -47,7 +47,7 @@ export const login = (req, res, next) => passport.authenticate('login', { sessio
     if (!user) {
         return res.status(404).json({ error: info.message });
     }
-    const userInfo = setLocalUserInfo(user);
+    const userInfo = helpers.setLocalUserInfo(user);
 
     res.status(200).json({
         token: `JWT ${generateToken(userInfo)}`,
@@ -64,7 +64,7 @@ export const facebookLoginCb = (req, res, next) => passport.authenticate('facebo
         return res.status(400).json({ error: info.message });
     }
 
-    const userInfo = setFacebookInfo(user);
+    const userInfo = helpers.setFacebookInfo(user);
     const token = `JWT ${generateToken(userInfo)}`;
     res.redirect(301, config.client_url + '/login-success/facebook/' + token);
 })(req, res, next);
@@ -72,7 +72,7 @@ export const facebookLoginCb = (req, res, next) => passport.authenticate('facebo
 
 //export const twitterLogin = passport.authenticate('twitter', { session: false });
 //export const twitter = (req, res, next) => {
-//    const userInfo = setTwitterInfo(req.user);
+//    const userInfo = helpers.setTwitterInfo(req.user);
 //
 //    res.status(200).json({
 //        token: `JWT ${generateToken(userInfo)}`,
@@ -89,7 +89,7 @@ export const googleLoginCb = (req, res, next) => passport.authenticate('google',
         return res.status(400).json({ error: info.message });
     }
 
-    const userInfo = setGoogleInfo(user);
+    const userInfo = helpers.setGoogleInfo(user);
     const token = `JWT ${generateToken(userInfo)}`;
     res.redirect(301, config.client_url + '/login-success/google/' + token);
 })(req, res, next);
@@ -108,7 +108,7 @@ export const roleAuthorization = (requiredRole) => {
                 return next(err);
             }
 
-            if (getRole(foundUser.role) >= getRole(requiredRole)) {
+            if (helpers.getRole(foundUser.role) >= helpers.getRole(requiredRole)) {
                 return next();
             }
 
