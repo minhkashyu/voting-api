@@ -2,7 +2,7 @@ import express from 'express';
 import userController from './../controllers/user/index';
 import pollController from './../controllers/poll/index';
 
-module.exports = (app) => {
+export default (app) => {
     const apiRoutes = express.Router();
     const authRoutes = express.Router();
 
@@ -32,7 +32,7 @@ module.exports = (app) => {
     authRoutes.get('/google/callback', userController.googleLoginCb);
 
     //Social Media tests to return token and userInfo to client side
-    authRoutes.get('/loginSuccess', userController.requireAuth, userController.loginSuccess);
+    authRoutes.get('/loginSuccess', userController.requireAuth, userController.getMediaLogin);
 
     //=========================
     // Poll Routes

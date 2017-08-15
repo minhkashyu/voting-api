@@ -5,8 +5,8 @@ import mongoose from 'mongoose';
 require('dotenv').config({ silent: true });
 
 let app = express();
-const config = require('./config/main');
-const router = require('./routes/index');
+const config = require('./config/main').default;
+const router = require('./routes/index').default;
 
 // Database Connection
 mongoose.Promise = global.Promise;
