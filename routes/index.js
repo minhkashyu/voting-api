@@ -10,7 +10,7 @@ import {
     googleLoginCb,
     forgotPassword,
     verifyToken
-    } from './../controllers/authentication';
+    } from './../controllers/user/index';
 import {
     fetchPolls,
     fetchMyPolls,
@@ -19,7 +19,7 @@ import {
     deletePoll,
     submitVote,
     voteNewOption
-    } from './../controllers/polling';
+    } from './../controllers/poll/index';
 
 // use session for passport
 //var session = require('express-session');

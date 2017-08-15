@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 import bcrypt from 'bcrypt-nodejs';
-import { ROLE_MEMBER, ROLE_ADMIN } from '../constants';
+import { ROLE_MEMBER, ROLE_ADMIN } from './../controllers/user/constants';
 
 const UserSchema = new Schema(
     {

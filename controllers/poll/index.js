@@ -1,4 +1,4 @@
-import Poll from './../models/poll';
+import Poll from './../../models/poll';
 
 export function fetchPolls(req, res, next) {
     Poll.find({})

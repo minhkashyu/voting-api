@@ -7,7 +7,7 @@ import {describe, beforeEach, afterEach, it} from 'mocha';
 import jwt from 'jsonwebtoken';
 import config from './../../../config/main';
 import auth from './../../config/auth';
-import { ROLE_MEMBER } from './../../../constants';
+import { ROLE_MEMBER } from './../../../controllers/user/constants';
 let server = require('./../../../index');
 let newUser = {
     email: 'leonardo_taha@yahoo.com',

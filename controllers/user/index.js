@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import User from './../models/user';
-import config from './../config/main';
-import passport from './../config/passport';
+import User from './../../models/user';
+import config from './../../config/main';
+import passport from './../../config/passport';
 
-import { setLocalUserInfo, setFacebookInfo, setTwitterInfo, setGoogleInfo, getRole } from '../helpers';
+import { setLocalUserInfo, setFacebookInfo, setTwitterInfo, setGoogleInfo, getRole } from './helpers';
 
 const generateToken = user => {
     return jwt.sign(user, config.secret, {
