@@ -4,12 +4,16 @@ let assert = chai.assert;
 chai.use(chaiHttp);
 import {describe, beforeEach, afterEach, it} from 'mocha';
 
-let app = require('./../../index');
+let server = require('./../../../index');
 
-describe('polls', () => {
+describe('Poll', () => {
+    afterEach(done => {
+        server.close(done);
+    });
+
     describe('GET /api/polls', () => {
         it('it should GET all the polls', (done) => {
-            chai.request(app).get('/api/polls')
+            chai.request(server).get('/api/polls')
                 .end((err, res) => {
                     assert.equal(err, null);
                     assert.equal(res.status, 200);
