@@ -8,11 +8,8 @@ const facebook = new FacebookStrategy({
         callbackURL     : configAuth.facebookAuth.callbackURL,
         profileFields   : ['id', 'emails', 'first_name', 'last_name', 'gender']
     },
-    // facebook will send back the token and profile
     (token, refreshToken, profile, done) => {
-        // asynchronous
         process.nextTick(() => {
-            // find the user in the database based on their facebook id
             User.findOne({ 'facebook.id' : profile.id }, (err, user) => {
                 if (err) {
                     return done(err);

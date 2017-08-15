@@ -13,7 +13,6 @@ export const register = new LocalStrategy({
     },
     (req, email, password, done) => {
         process.nextTick(() => {
-            // Return error if full name not provided
             if (!req.body.firstName || !req.body.lastName) {
                 return done(null, false, { message: 'You must enter your full name.' });
             }
