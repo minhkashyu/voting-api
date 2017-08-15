@@ -1,7 +1,14 @@
+import jwt from 'jsonwebtoken';
 import { ROLE_MEMBER, ROLE_ADMIN } from './constants';
+import config from './../../config/main';
 
 const helpers = {
-    setLocalUserInfo: (user) => {
+    generateToken: user => {
+        return jwt.sign(user, config.secret, {
+            expiresIn: 10800 // 3 hrs
+        });
+    },
+    setLocalUserInfo: user => {
         return {
             id: user.id,
             name: `${user.local.firstName} ${user.local.lastName}`,
@@ -9,7 +16,7 @@ const helpers = {
             role: user.role
         };
     },
-    setFacebookInfo: (user) => {
+    setFacebookInfo: user => {
         return {
             id      : user.id,
             token   : user.facebook.token,
@@ -18,7 +25,7 @@ const helpers = {
             role    : user.role
         };
     },
-    setTwitterInfo: (user) => {
+    setTwitterInfo: user => {
         return {
             id          : user.id,
             token       : user.twitter.token,
@@ -27,7 +34,7 @@ const helpers = {
             role        : user.role
         };
     },
-    setGoogleInfo: (user) => {
+    setGoogleInfo: user => {
         return {
             id      : user.id,
             token   : user.google.token,
@@ -36,7 +43,7 @@ const helpers = {
             role    : user.role
         };
     },
-    getRole(checkRole) {
+    getRole: checkRole => {
         let role;
 
         switch (checkRole) {

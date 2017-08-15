@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     // Secret key for JWT signing and encryption
     secret: process.env.JWT,
     // Database connection information

@@ -1,69 +1,38 @@
 import express from 'express';
-import {
-    requireAuth,
-    loginSuccess,
-    register,
-    login,
-    facebookLogin,
-    facebookLoginCb,
-    googleLogin,
-    googleLoginCb,
-    forgotPassword,
-    verifyToken
-    } from './../controllers/user/index';
+import userController from './../controllers/user/index';
 import pollController from './../controllers/poll/index';
 
-// use session for passport
-//var session = require('express-session');
-//app.use(session({
-//	secret: 'mks-voting-app',
-//	resave: false,
-//	saveUninitialized: true
-//}));
-//app.use(passport.initialize());
-//app.use(passport.session());
-//function isLoggedIn (req, res, next) {
-//    if (req.isAuthenticated()) {
-//        return next();
-//    } else {
-//        res.redirect('/login');
-//    }
-//}
-
 module.exports = (app) => {
-    // Initializing route groups
     const apiRoutes = express.Router();
     const authRoutes = express.Router();
 
-    // Set url for API group routes
     app.use('/api', apiRoutes);
 
     //=========================
     // Auth Routes
     //=========================
-    // Set auth routes as subgroup/middleware to apiRoutes
     apiRoutes.use('/auth', authRoutes);
 
     // POST /api/auth/register
-    authRoutes.post('/register', register);
+    authRoutes.post('/register', userController.register);
     // POST /api/auth/login
-    authRoutes.post('/login', login);
+    authRoutes.post('/login', userController.login);
     // POST /api/auth/forgot-password
-    authRoutes.post('/forgot-password', forgotPassword);
+    authRoutes.post('/forgot-password', userController.forgotPassword);
     // POST /api/auth//reset-password/:token
-    authRoutes.post('/reset-password/:token', verifyToken);
+    authRoutes.post('/reset-password/:token', userController.verifyToken);
 
     // GET /api/auth/facebook
-    authRoutes.get('/facebook', facebookLogin);
-    authRoutes.get('/facebook/callback', facebookLoginCb);
+    authRoutes.get('/facebook', userController.facebookLogin);
+    authRoutes.get('/facebook/callback', userController.facebookLoginCb);
     //authRoutes.get('/twitter', twitterLogin);
     //authRoutes.get('/twitter/callback', twitterLogin, twitter);
     // GET /api/auth/google
-    authRoutes.get('/google', googleLogin);
-    authRoutes.get('/google/callback', googleLoginCb);
+    authRoutes.get('/google', userController.googleLogin);
+    authRoutes.get('/google/callback', userController.googleLoginCb);
 
     //Social Media tests to return token and userInfo to client side
-    authRoutes.get('/loginSuccess', requireAuth, loginSuccess);
+    authRoutes.get('/loginSuccess', userController.requireAuth, userController.loginSuccess);
 
     //=========================
     // Poll Routes
@@ -72,15 +41,15 @@ module.exports = (app) => {
     //fetchPolls()
     apiRoutes.get('/polls', pollController.fetchPolls);
     //fetchMyPolls()
-    apiRoutes.get('/polls/my', requireAuth, pollController.fetchMyPolls);
+    apiRoutes.get('/polls/my', userController.requireAuth, pollController.fetchMyPolls);
     //fetchSinglePoll()
     apiRoutes.get('/polls/:pollId', pollController.fetchSinglePoll);
     //addPoll(data)
-    apiRoutes.post('/polls', requireAuth, pollController.addPoll);
+    apiRoutes.post('/polls', userController.requireAuth, pollController.addPoll);
     //deletePoll()
-    apiRoutes.delete(`/polls/:pollId`, requireAuth, pollController.deletePoll);
+    apiRoutes.delete(`/polls/:pollId`, userController.requireAuth, pollController.deletePoll);
     //submitVote()
     apiRoutes.post('/polls/:pollId/options/:optionId/vote', pollController.submitVote);
     //submitVote(data)
-    apiRoutes.post('/polls/:pollId/options', requireAuth, pollController.voteNewOption);
+    apiRoutes.post('/polls/:pollId/options', userController.requireAuth, pollController.voteNewOption);
 };
