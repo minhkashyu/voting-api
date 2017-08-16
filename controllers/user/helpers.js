@@ -1,12 +1,33 @@
 import jwt from 'jsonwebtoken';
 import { ROLE_MEMBER, ROLE_ADMIN } from './constants';
 import config from './../../config/main';
+import User from './../../models/user';
 
 const helpers = {
     generateToken: user => {
         return jwt.sign(user, config.secret, {
             expiresIn: 10800 // 3 hrs
         });
+    },
+    getUserByEmail: (email, callback) => {
+        if (!email) {
+            return callback({
+                status: 422,
+                message: 'Email address is needed.'
+            });
+        }
+
+        User.findOne({ 'local.email': email })
+            .exec((err, user) => {
+                if (err || !user) {
+                    return callback({
+                        status: 404,
+                        message: `User with email ${email} cannot be found.`
+                    });
+                }
+
+                return callback(null, user);
+            });
     },
     setLocalUserInfo: user => {
         return {

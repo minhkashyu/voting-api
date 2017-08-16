@@ -39,10 +39,14 @@ app.use((req, res, next) => {
 // Import routes to be served
 router(app);
 
-module.exports = app.listen(config.port, err => {
+let server = app.listen(config.port, err => {
     if (err) {
         return console.error(err);
     }
 
     console.log('The server is listening on port %s', config.port);
 });
+
+module.exports = {
+    server: server
+};

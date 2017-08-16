@@ -4,14 +4,20 @@ let assert = chai.assert;
 chai.use(chaiHttp);
 import {describe, beforeEach, afterEach, it} from 'mocha';
 
-let server = require('./../../../index');
+let app = require('./../../../index');
+let server;
 
 describe('GET /api/polls', () => {
+    beforeEach(done => {
+        server = app.server;
+        done();
+    });
+
     afterEach(done => {
         server.close(done);
     });
 
-    it('it should GET all the polls', (done) => {
+    it('it should GET all polls', (done) => {
         chai.request(server)
             .get('/api/polls')
             .end((err, res) => {

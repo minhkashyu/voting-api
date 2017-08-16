@@ -8,7 +8,8 @@ import jwt from 'jsonwebtoken';
 import config from './../../../config/main';
 import auth from './../../config/auth';
 import { ROLE_MEMBER } from './../../../controllers/user/constants';
-let server = require('./../../../index');
+let app = require('./../../../index');
+let server;
 let newUser = {
     email: 'leonardo_taha@yahoo.com',
     firstName: 'Leonardo',
@@ -16,12 +17,17 @@ let newUser = {
     password: '111111'
 };
 
-const callApi = () => chai.request(server).post('/api/auth/register');
-
 describe('POST /api/auth/register', () => {
+    beforeEach(done => {
+        server = app.server;
+        done();
+    });
+
     afterEach(done => {
         server.close(done);
     });
+
+    const callApi = () => chai.request(server).post('/api/auth/register');
 
     it('it should NOT register without firstName or lastName', (done) => {
         callApi()

@@ -1,8 +1,13 @@
 import User from './../../models/user';
 import crypto from 'crypto';
+import moment from 'moment';
 
 export default (req, res, next) => {
     const email = req.body.email;
+
+    if (!email) {
+        return res.status(404).json({ error: 'Email address is needed.' });
+    }
 
     User.findOne({ 'local.email': email }, (err, existingUser) => {
         if (err || !existingUser) {
@@ -18,7 +23,7 @@ export default (req, res, next) => {
 
             const resetToken = buffer.toString('hex');
             existingUser.local.resetPasswordToken = resetToken;
-            existingUser.local.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+            existingUser.local.resetPasswordExpires = moment().add(1, 'hours').valueOf(); // 1 hour
 
             existingUser.save(err => {
                 if (err) {

@@ -8,10 +8,16 @@ import jwt from 'jsonwebtoken';
 import config from './../../../config/main';
 import auth from './../../config/auth';
 import user from './../../config/user';
-let server = require('./../../../index');
+let app = require('./../../../index');
+let server;
 let registeredUser = user.registeredUser();
 
 describe('POST /api/auth/login', () => {
+    beforeEach(done => {
+        server = app.server;
+        done();
+    });
+
     afterEach(done => {
         server.close(done);
     });
