@@ -6,12 +6,12 @@ export default (req, res, next) => {
     const email = req.body.email;
 
     if (!email) {
-        return res.status(404).json({ error: 'Email address is needed.' });
+        return res.status(400).json({ error: 'Email address is needed.' });
     }
 
     User.findOne({ 'local.email': email }, (err, existingUser) => {
         if (err || !existingUser) {
-            return res.status(422).json({ error: 'Your email can not be processed. Please check it.'});
+            return res.status(404).json({ error: 'Your email can not be processed. Please check it.'});
         }
 
         // If user is found, generate and save resetToken

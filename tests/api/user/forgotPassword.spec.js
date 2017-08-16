@@ -15,7 +15,7 @@ let registeredUser = user.registeredUser();
 let stubCrypto;
 let resetToken = 'cd7e842fe5f86a6e08217f58dcb2cd13ec21bfdc158e26c835825cab01015436d630479d2d154fce3093ce22b8afb2c8';
 
-describe.only('POST /api/auth/forgot-password', () => {
+describe('POST /api/auth/forgot-password', () => {
     beforeEach(done => {
         server = app.server;
         done();
@@ -34,7 +34,7 @@ describe.only('POST /api/auth/forgot-password', () => {
     it('it should NOT reset password without email', (done) => {
         callApi()
             .end((err, res) => {
-                assert.equal(res.status, 404);
+                assert.equal(res.status, 400);
                 assert.equal(res.body.error, 'Email address is needed.');
                 done();
             }
@@ -46,7 +46,7 @@ describe.only('POST /api/auth/forgot-password', () => {
                 email: 'wrongemail@yahoo.com'
             })
             .end((err, res) => {
-                assert.equal(res.status, 422);
+                assert.equal(res.status, 404);
                 assert.equal(res.body.error, 'Your email can not be processed. Please check it.');
                 done();
             }

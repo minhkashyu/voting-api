@@ -1,15 +1,25 @@
 import User from './../../models/user';
 
 export default (req, res, next) => {
+    let token = req.params.token;
+    let newPassword = req.body.password;
+
+    if (!token || token === 'undefined') {
+        return res.status(400).json({ error: 'Token is needed to verify.' });
+    }
+    if (!newPassword) {
+        return res.status(400).json({ error: 'A new password is needed.' });
+    }
+
     User.findOne({
-            'local.resetPasswordToken': req.params.token,
+            'local.resetPasswordToken': token,
             'local.resetPasswordExpires': { $gt: Date.now() }
         }, (err, resetUser) => {
             if (err || !resetUser) {
-                return res.status(422).json({ error: 'Your token has expired. Please reset your password again.' });
+                return res.status(404).json({ error: 'Your token has expired. Please reset your password again.' });
             }
 
-            resetUser.generateHash(req.body.password, (error, hash) => {
+            resetUser.generateHash(newPassword, (error, hash) => {
                 if (error) {
                     return next(error);
                 }
@@ -30,7 +40,7 @@ export default (req, res, next) => {
                 };
                 // TODO: add email service
 
-                return res.status(200).json({ message: 'Password is changed successfully. Please login with your new password.' });
+                return res.status(200).json({ message: 'Password is reset successfully. Please login with your new password.' });
             });
         }
     );
