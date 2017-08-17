@@ -3,7 +3,7 @@ import Poll from './../../models/poll';
 export default (req, res, next) => {
     let userId = req.user.id;
     if (!userId) {
-        res.status(422).send({ error: 'User ID is needed.' });
+        res.status(400).send({ error: 'User ID is needed.' });
         return next();
     }
     Poll.find({ author: userId })
