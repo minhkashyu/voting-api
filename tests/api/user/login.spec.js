@@ -32,7 +32,7 @@ describe('POST /api/auth/login', () => {
     it('it should NOT login with incorrect email', (done) => {
         auth.loginAsUser(server, {
             email: 'wrongemail@yahoo.com',
-            password: registeredUser.local.password
+            password: registeredUser.password
         }).end((err, res) => {
             assert.equal(res.status, 404);
             assert.equal(res.body.error, 'Your login details could not be verified. Please try again.');
@@ -41,7 +41,7 @@ describe('POST /api/auth/login', () => {
     });
     it('it should NOT login with incorrect password', (done) => {
         auth.loginAsUser(server, {
-            email: registeredUser.local.email,
+            email: registeredUser.email,
             password: '000000'
         }).end((err, res) => {
             assert.equal(res.status, 404);
@@ -50,13 +50,13 @@ describe('POST /api/auth/login', () => {
         });
     });
     it('it should login', (done) => {
-        auth.loginAsUser(server, registeredUser.local).end((err, res) => {
+        auth.loginAsUser(server, registeredUser).end((err, res) => {
             assert.equal(err, null);
             assert.equal(res.status, 200);
 
             let user = res.body.user;
-            assert.equal(user.email, registeredUser.local.email);
-            assert.equal(user.name, registeredUser.local.firstName + ' ' + registeredUser.local.lastName);
+            assert.equal(user.email, registeredUser.email);
+            assert.equal(user.name, registeredUser.name);
             assert.equal(user.role, registeredUser.role);
 
             let token = res.body.token.replace(/^JWT\s/, '');

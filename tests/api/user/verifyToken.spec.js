@@ -67,7 +67,7 @@ describe('POST /api/auth/reset-password/:token', () => {
                 assert.equal(res.status, 200);
                 assert.equal(res.body.message, 'Password is reset successfully. Please login with your new password.');
 
-                helpers.getUserByEmail(registeredUser.local.email, (err, user) => {
+                helpers.getUserByEmail(registeredUser.email, (err, user) => {
                     assert.equal(err, null);
                     assert.equal(user.local.resetPasswordToken, undefined);
                     assert.equal(user.local.resetPasswordExpires, undefined);

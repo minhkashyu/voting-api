@@ -1,24 +1,18 @@
 export default {
     registeredUser: () => {
         return {
-            "role": "Member",
-            "local": {
-                "firstName": "Local",
-                "lastName": "Test",
-                "email": "localtest@hotmail.com",
-                "password": "111111"
-            }
+            "name": "Local Test",
+            "email": "localtest@hotmail.com",
+            "password": "111111",
+            "role": "Member"
         };
     },
     differentUser: () => {
         return {
-            "role": "Member",
-            "local": {
-                "firstName": "Different",
-                "lastName": "User",
-                "email": "differentuser@yahoo.com",
-                "password": "$2a$08$ZRavHPWsFszTTfl1Klplxew92O.vTj1KPAgiZgcgqjzUU3R5U4tWO"
-            }
+            "name": "Different User",
+            "email": "differentuser@yahoo.com",
+            "password": "111111",
+            "role": "Member"
         };
     }
 };

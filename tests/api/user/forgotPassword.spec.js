@@ -55,13 +55,13 @@ describe('POST /api/auth/forgot-password', () => {
     it('it should reset password', (done) => {
         let resetPasswordExpires = moment().add(1, 'hours').utc().toDate();
         callApi()
-            .send(registeredUser.local)
+            .send(registeredUser)
             .end((err, res) => {
                 assert.equal(err, null);
                 assert.equal(res.status, 200);
                 assert.equal(res.body.message, 'Please check your email for the link to reset your password.');
 
-                helpers.getUserByEmail(registeredUser.local.email, (err, user) => {
+                helpers.getUserByEmail(registeredUser.email, (err, user) => {
                     assert.equal(err, null);
                     assert.equal(user.local.resetPasswordToken, resetToken);
                     assert.isOk(user.local.resetPasswordExpires >= resetPasswordExpires);
