@@ -14,7 +14,7 @@ let wrongPollId = '123456';
 let wrongOptionId = '12345678';
 let vote = 2536;
 
-describe.only('POST /api/polls/:pollId/options/:optionId/vote', () => {
+describe('POST /api/polls/:pollId/options/:optionId/vote', () => {
     beforeEach(done => {
         server = app.server;
         done();

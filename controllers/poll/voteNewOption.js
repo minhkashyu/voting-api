@@ -11,7 +11,7 @@ export default (req, res, next) => {
             return next();
         }
         if (!optionName) {
-            res.status(422).send({ error: 'Option Name is needed.' });
+            res.status(400).send({ error: 'Option Name is needed.' });
             return next();
         }
 
