@@ -10,8 +10,8 @@ export default (req, res, next) => {
             res.status(err.status).send({ error: err.message });
             return next();
         }
-        if (!optionId) {
-            res.status(422).send({ error: 'Option ID is needed.' });
+        if (!optionId || optionId === 'undefined' || optionId === 'null') {
+            res.status(400).send({ error: 'Option ID is needed.' });
             return next();
         }
 
@@ -32,7 +32,7 @@ export default (req, res, next) => {
 
         let doc = poll.options.id(optionId);
         if (!doc) {
-            res.status(400).send({ error: 'Option ID is not correct.' });
+            res.status(404).send({ error: 'Option ID is not correct.' });
             return next();
         }
         doc.vote++;
@@ -44,7 +44,7 @@ export default (req, res, next) => {
             }
 
             return res.status(200).json({
-                message: `Vote has been submitted.`,
+                message: 'Vote has been submitted.',
                 poll: newPoll
             });
         });

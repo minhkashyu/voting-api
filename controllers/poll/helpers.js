@@ -2,7 +2,7 @@ import Poll from './../../models/poll';
 
 const helpers = {
     getPollById: (pollId, callback) => {
-        if (!pollId || pollId === 'undefined') {
+        if (!pollId || pollId === 'undefined' || pollId === 'null') {
             return callback({
                 status: 400,
                 message: 'Poll ID is needed.'
