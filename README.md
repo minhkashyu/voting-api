@@ -4,7 +4,9 @@ A Free Code Camp Dynamic Web Application Project. A Full Stack Javascript App us
 
 This is the API server side of the Fullstack App. The client side can be found at https://github.com/minhkashyu/voting-app-frontend.
 
-You can run the App at https://mks-voting-app.herokuapp.com/
+You can run the App at https://mks-voting-app.herokuapp.com/.
+
+NOTE: This app on heroku has a web dyno, and if the web dyno receives no traffic in a 30 minute period, the web dyno will sleep. If you access the app when the web dyno is sleeping, you will experience a short delay. After that, the web dyno will become active and the app will run normally. Also the api of the app has another web dyno, and as a result, the first data loading will have a delay as well.
 
 ## User Stories
 
