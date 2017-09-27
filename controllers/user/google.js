@@ -5,11 +5,9 @@ import config from './../../config/main';
 export default {
     googleLogin: passport.authenticate('google', { scope : ['profile', 'email'], session: false }),
     googleLoginCb: (req, res, next) => passport.authenticate('google', { session: false }, (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.status(400).json({ error: info.message });
+        if (err || !user) {
+            res.status(400).json({ error: 'Cannot process Google Login.' });
+            return next();
         }
 
         const userInfo = helpers.setGoogleInfo(user);

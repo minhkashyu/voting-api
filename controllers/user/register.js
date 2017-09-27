@@ -3,7 +3,7 @@ import helpers from './helpers';
 
 export default (req, res, next) => passport.authenticate('register', { session: false }, (err, user, info) => {
     if (err) {
-        return next(err);
+        return res.status(404).json({ error: 'Cannot process your registration.' });
     }
     if (!user) {
         return res.status(400).json({ error: info.message });

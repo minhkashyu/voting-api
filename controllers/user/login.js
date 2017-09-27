@@ -3,7 +3,7 @@ import helpers from './helpers';
 
 export default (req, res, next) => passport.authenticate('login', { session: false }, (err, user, info) => {
     if (err) {
-        return next(err);
+        return res.status(404).json({ error: 'Cannot process your login.' });
     }
     if (!user) {
         return res.status(404).json({ error: info.message });

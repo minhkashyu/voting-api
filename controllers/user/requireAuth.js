@@ -1,11 +1,8 @@
 import passport from './../../config/passport';
 
 export default (req, res, next) => passport.authenticate('jwt', { session: false }, (err, user) => {
-    if (err) {
-        return next(err);
-    }
-    if (!user) {
-        return res.status(401).json({ error: 'No auth token.' });
+    if (err || !user) {
+        return res.status(401).json({ error: 'You are not authorised to do this. Please log in.' });
     }
     req.user = user;
     next();

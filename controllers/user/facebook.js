@@ -5,11 +5,9 @@ import config from './../../config/main';
 export default {
     facebookLogin: passport.authenticate('facebook', { scope : 'email', session: false }),
     facebookLoginCb: (req, res, next) => passport.authenticate('facebook', { session: false }, (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.status(400).json({ error: info.message });
+        if (err || !user) {
+            res.status(400).json({ error: 'Cannot process Facebook Login.' });
+            return next();
         }
 
         const userInfo = helpers.setFacebookInfo(user);
